@@ -102,11 +102,22 @@ router.get('/displayDelete',function(req,res){
 
 router.get('/message',function(req,res){
 
-    if(req.query.message==undefined){
+    if(req.query.message==undefined && req.query.docId==undefined){
         res.send('failure');
     }
     else{
-        res.send('success');
+        var data={
+            "docId":req.query.docId,
+            "message":req.query.message
+        }
+        repository.saveMessage(data)
+            .then((result)=>{
+                res.send('success');
+            })
+            .catch((err)=>{
+                res.send("failure");
+            });
+
     }
 });
 
