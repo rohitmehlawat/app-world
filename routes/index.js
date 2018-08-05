@@ -1,3 +1,7 @@
+const Validator=require('jsonschema').Validator;
+const schemaValidator=new Validator();
+const message=require('../schema/message');
+const repository=require('../db/repository');
 var express = require('express');
 var router = express.Router();
 
@@ -13,6 +17,49 @@ router.post('/setMessage',function(req,res,next){
   else{
     res.send("failure");
   }
+
+});
+
+router.post('/messageAPI',function(req,res,next){
+    const data=req.body;
+    const result=schemaValidator.validate(data,message);
+    if(result.valid){
+      repository.saveMessage(data)
+          .then((result)=>{
+              if(data.mFlag==0){
+                  res.send("success");
+              }
+              else if(data.mFlag==1){
+                  res.send("delete success");
+              }
+              else{
+                  res.send("success");
+              }
+
+          })
+          .catch((err)=>{
+              res.send("failure");
+          });
+
+    }
+    else{
+      res.send(result.errors);
+    }
+
+
+});
+
+router.post('/saveMessageAPI',function(req,res,next){
+    const data=req.body;
+    const result=schemaValidator.validate(data,message);
+    if(result.valid){
+        repository.dbConnection(data);
+        res.send("success");
+    }
+    else{
+        res.send(result.errors);
+    }
+
 
 });
 
