@@ -92,7 +92,7 @@ router.get('/displayDelete',function(req,res){
         res.send('deletionSuccess');
 
     }
-    else if(req.query.flag=0){
+    else if(req.query.flag==0){
         res.send('displaySuccess');
     }
     else{
