@@ -86,5 +86,29 @@ router.post('/messageAPI',function(req,res,next){
 
 });
 
+router.get('/displayDelete',function(req,res){
+
+    if(req.query.flag==1){
+        res.send('deletionSuccess');
+
+    }
+    else if(req.query.flag=0){
+        res.send('displaySuccess');
+    }
+    else{
+        res.send('failure');
+    }
+});
+
+router.get('/message',function(req,res){
+
+    if(req.query.message==undefined){
+        res.send('failure');
+    }
+    else{
+        res.send('success');
+    }
+});
+
 
 module.exports = router;
