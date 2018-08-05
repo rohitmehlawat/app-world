@@ -100,18 +100,12 @@ router.get('/displayDelete',function(req,res){
     }
 });
 
-router.get('/message',function(req,res){
-
-    console.log(req.query.message);
-    console.log(req.query.docId);
-    if(req.query.message==undefined || req.query.docId==undefined){
+router.post('/message',function(req,res){
+    const data=req.body;
+    if(data.message==undefined || data.docId==undefined){
         res.send('failure');
     }
     else{
-        var data={
-            "docId":req.query.docId,
-            "message":req.query.message
-        }
         repository.saveMessage(data)
             .then((result)=>{
                 res.send('success');
