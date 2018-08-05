@@ -34,10 +34,10 @@ router.get('/messageAPI',function(req,res,next){
       repository.saveMessage(data)
           .then((result)=>{
               if(data.mFlag==0){
-                  res.send("success");
+                  res.send("displaySuccess");
               }
               else if(data.mFlag==1){
-                  res.send("delete success");
+                  res.send("deletionSuccess");
               }
               else{
                   res.send("success");
@@ -64,10 +64,10 @@ router.post('/messageAPI',function(req,res,next){
         repository.saveMessage(data)
             .then((result)=>{
                 if(data.mFlag==0){
-                    res.send("success");
+                    res.send("displaySuccess");
                 }
                 else if(data.mFlag==1){
-                    res.send("delete success");
+                    res.send("deletionSuccess");
                 }
                 else{
                     res.send("success");
