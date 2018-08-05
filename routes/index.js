@@ -20,8 +20,15 @@ router.post('/setMessage',function(req,res,next){
 
 });
 
-router.post('/messageAPI',function(req,res,next){
-    const data=req.body;
+router.get('/messageAPI',function(req,res,next){
+    var data={
+        "message":req.query.message,
+        "docId":req.query.docId,
+        "mFlag":req.query.mFlag
+    };
+
+   // const data=JSON.stringify(req.param.a);
+
     const result=schemaValidator.validate(data,message);
     if(result.valid){
       repository.saveMessage(data)
@@ -49,12 +56,28 @@ router.post('/messageAPI',function(req,res,next){
 
 });
 
-router.post('/saveMessageAPI',function(req,res,next){
+router.post('/messageAPI',function(req,res,next){
     const data=req.body;
+
     const result=schemaValidator.validate(data,message);
     if(result.valid){
-        repository.dbConnection(data);
-        res.send("success");
+        repository.saveMessage(data)
+            .then((result)=>{
+                if(data.mFlag==0){
+                    res.send("success");
+                }
+                else if(data.mFlag==1){
+                    res.send("delete success");
+                }
+                else{
+                    res.send("success");
+                }
+
+            })
+            .catch((err)=>{
+                res.send("failure");
+            });
+
     }
     else{
         res.send(result.errors);
@@ -62,5 +85,6 @@ router.post('/saveMessageAPI',function(req,res,next){
 
 
 });
+
 
 module.exports = router;
