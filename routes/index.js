@@ -102,7 +102,9 @@ router.get('/displayDelete',function(req,res){
 
 router.get('/message',function(req,res){
 
-    if(req.query.message==undefined && req.query.docId==undefined){
+    console.log(req.query.message);
+    console.log(req.query.docId);
+    if(req.query.message==undefined || req.query.docId==undefined){
         res.send('failure');
     }
     else{
