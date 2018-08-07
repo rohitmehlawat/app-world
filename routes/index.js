@@ -117,8 +117,8 @@ router.post('/message',function(req,res){
     }
 });
 
-router.get('/getTokens',function(req,res){
-   if(req.query.docId==undefined || req.query.flag==undefined){
+router.post('/getTokens',function(req,res){
+   if(req.body.docId==undefined || req.body.flag==undefined){
        res.send("Parameters missing");
    }
    else{
