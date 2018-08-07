@@ -50,3 +50,20 @@ exports.save=(data)=>{
 
 
 };
+
+exports.delete=(data)=>{
+    var defer=Q.defer();
+    var message = dbClient.db("hospital_db").collection("message");
+    message.deleteOne(
+        {"docId":data.docId}
+    ).then(result=>{
+        defer.resolve(result);
+
+    }).catch(err=>{
+        defer.reject();
+    })
+
+    return defer.promise;
+
+
+};

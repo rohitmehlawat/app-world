@@ -117,5 +117,19 @@ router.post('/message',function(req,res){
     }
 });
 
+router.get('/getTokens',function(req,res){
+   if(req.query.docId==undefined || req.query.flag==undefined){
+       res.send("Parameters missing");
+   }
+   else{
+       var array=[];
+       for(var i=0;i<10;i++){
+           array.push({token:(i+1)});
+       }
+       res.send(array);
+   }
+
+});
+
 
 module.exports = router;
